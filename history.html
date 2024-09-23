@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Donation History</title>
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="container mx-auto mt-8">
+        <h1 class="text-3xl font-bold text-center">Donation History</h1>
+        <div id="history-list" class="mt-4 space-y-4">
+            <!-- Dynamically added entries will appear here -->
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            loadHistory();
+        });
+
+        function loadHistory() {
+            const historyList = document.getElementById('history-list');
+            const donations = JSON.parse(localStorage.getItem('donations')) || [];
+
+            // Clear current list
+            historyList.innerHTML = '';
+
+            // Append each donation to the list
+            donations.forEach(donation => {
+                const entry = document.createElement('div');
+                entry.classList.add('p-4', 'bg-gray-100', 'rounded-lg');
+                entry.innerHTML = `<p class="font-bold">${donation.amount} Taka is Donated for ${donation.name}</p><p>Date: ${donation.date}</p>`;
+                historyList.appendChild(entry);
+            });
+        }
+    </script>
+</body>
+</html>
