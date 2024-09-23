@@ -10,7 +10,7 @@ function handleDonation(cardId) {
     const inputElement = document.getElementById(`input-donation-${cardId}`);
     const donationAmount = parseFloat(inputElement.value);
 
-   
+    
     if (isNaN(donationAmount) || donationAmount <= 0) {
         alert("Please enter a valid donation amount.");
         return;
@@ -21,11 +21,11 @@ function handleDonation(cardId) {
         return;
     }
 
-   
+    
     AccountBalance -= donationAmount;
     updateUI();
 
-  
+   
     const currentDonationElement = document.getElementById(`donation-amount-${cardId}`);
     let currentDonationValue = parseFloat(currentDonationElement.textContent);
     currentDonationElement.textContent = (currentDonationValue + donationAmount).toFixed(2);
@@ -54,26 +54,26 @@ function addToHistory(cardId, donationAmount) {
         date: date
     };
 
-
+    
     let historyList = JSON.parse(localStorage.getItem('donationHistory')) || [];
     historyList.push(historyEntry);
 
     
     localStorage.setItem('donationHistory', JSON.stringify(historyList));
 
-    /
+    
     displayHistory();
 }
 
-
+// Display the donation history from localStorage
 function displayHistory() {
     const historyList = JSON.parse(localStorage.getItem('donationHistory')) || [];
     const historySection = document.getElementById('history-list');
 
-    
+    // Clear current history
     historySection.innerHTML = '';
 
-    
+    // Loop through history and add to history section
     historyList.forEach(entry => {
         const newHistoryItem = document.createElement('div');
         newHistoryItem.className = 'p-4 bg-gray-100 rounded-lg';
