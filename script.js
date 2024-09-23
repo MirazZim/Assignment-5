@@ -1,16 +1,16 @@
-let AccountBalance = 5500; // Global variable to keep track of the balance
+let AccountBalance = 5500; 
 
-// Update the UI with the current account balance
+
 function updateUI() {
     document.querySelector('#account-balance span').textContent = `${AccountBalance} BDT`;
 }
 
-// Handle the donation action for each donation card
+
 function handleDonation(cardId) {
     const inputElement = document.getElementById(`input-donation-${cardId}`);
     const donationAmount = parseFloat(inputElement.value);
 
-    // Validate donation amount
+   
     if (isNaN(donationAmount) || donationAmount <= 0) {
         alert("Please enter a valid donation amount.");
         return;
@@ -21,24 +21,24 @@ function handleDonation(cardId) {
         return;
     }
 
-    // Deduct from account balance
+   
     AccountBalance -= donationAmount;
     updateUI();
 
-    // Update donation amount on the card
+  
     const currentDonationElement = document.getElementById(`donation-amount-${cardId}`);
     let currentDonationValue = parseFloat(currentDonationElement.textContent);
     currentDonationElement.textContent = (currentDonationValue + donationAmount).toFixed(2);
 
-    // Add to history
+    
     addToHistory(cardId, donationAmount);
 
-    // Clear input field and show success modal
+    
     inputElement.value = '';
-    showSuccessModal(); // Display the success modal
+    showSuccessModal(); 
 }
 
-// Add a new donation entry to history and save to local storage
+
 function addToHistory(cardId, donationAmount) {
     const donationDescriptions = {
         1: "Flood at Noakhali, Bangladesh",
@@ -47,33 +47,33 @@ function addToHistory(cardId, donationAmount) {
     };
 
     const donationName = donationDescriptions[cardId];
-    const date = new Date().toLocaleString(); // Get formatted date and time
+    const date = new Date().toLocaleString(); 
     const historyEntry = {
         amount: donationAmount,
         name: donationName,
         date: date
     };
 
-    // Retrieve existing history from local storage or initialize if none exist
+
     let historyList = JSON.parse(localStorage.getItem('donationHistory')) || [];
     historyList.push(historyEntry);
 
-    // Update local storage with the new entry
+    
     localStorage.setItem('donationHistory', JSON.stringify(historyList));
 
-    // Display updated history
+    /
     displayHistory();
 }
 
-// Display the donation history from localStorage
+
 function displayHistory() {
     const historyList = JSON.parse(localStorage.getItem('donationHistory')) || [];
     const historySection = document.getElementById('history-list');
 
-    // Clear current history
+    
     historySection.innerHTML = '';
 
-    // Loop through history and add to history section
+    
     historyList.forEach(entry => {
         const newHistoryItem = document.createElement('div');
         newHistoryItem.className = 'p-4 bg-gray-100 rounded-lg';
